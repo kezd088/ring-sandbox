@@ -1,0 +1,7 @@
+{
+  "schema": "speed.ci-checks.v1",
+  "lanes": {
+    "light": ["ci"],
+    "heavy": ["ci"]
+  }
+}
