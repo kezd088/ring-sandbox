@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>Ring sandbox</title>
+<style>body{font-family:-apple-system,sans-serif;margin:40px}h1{font-size:28px}#status{color:#2a7}</style>
+</head>
+<body>
+<h1 id="title">Ring sandbox</h1>
+<p id="status">ok</p>
+<p>Version: <span id="version">unknown</span></p>
+<script>
+fetch('version.json').then(r => r.json()).then(v => { document.getElementById('version').textContent = v.sha.slice(0, 12); });
+</script>
+</body>
+</html>
