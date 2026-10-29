@@ -21,3 +21,9 @@ test('index.html title reads Ring sandbox', () => {
   assert.match(html, /<title>Ring sandbox<\/title>/);
   assert.match(html, /<h1 id="title">Ring sandbox<\/h1>/);
 });
+
+test('index.html version label reads Version:', () => {
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  assert.match(html, />Version: <span id="version">/);
+  assert.doesNotMatch(html, /Verison/);
+});

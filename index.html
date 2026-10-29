@@ -8,7 +8,7 @@
 <body>
 <h1 id="title">Rnig sandbox</h1>
 <p id="status">ok</p>
-<p>Verison: <span id="version">unknown</span></p>
+<p>Version: <span id="version">unknown</span></p>
 <script>
 fetch('version.json').then(r => r.json()).then(v => { document.getElementById('version').textContent = v.sha.slice(0, 12); });
 </script>
