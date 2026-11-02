@@ -27,3 +27,9 @@ test('index.html version label reads Version:', () => {
   assert.match(html, />Version: <span id="version">/);
   assert.doesNotMatch(html, /Verison/);
 });
+
+test('index.html version is empty until version.json loads the first 12 sha chars', () => {
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  assert.match(html, /<span id="version"><\/span>/);
+  assert.match(html, /getElementById\('version'\)\.textContent = v\.sha\.slice\(0, 12\)/);
+});
