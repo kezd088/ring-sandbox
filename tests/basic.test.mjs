@@ -16,10 +16,10 @@ test('health.json reports ok and database_connected', () => {
   assert.equal(h.database_connected, true);
 });
 
-test('index.html title reads Ring sandbox', () => {
+test('index.html title reads Ring sandbox, heading reads Ring sandbox ready', () => {
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   assert.match(html, /<title>Ring sandbox<\/title>/);
-  assert.match(html, /<h1 id="title">Ring sandbox<\/h1>/);
+  assert.match(html, /<h1 id="title">Ring sandbox ready<\/h1>/);
 });
 
 test('index.html version label reads Version:', () => {
