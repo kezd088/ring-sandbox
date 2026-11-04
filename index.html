@@ -12,7 +12,11 @@
 <script>
 fetch('version.json')
   .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-  .then(v => { document.getElementById('version').textContent = v.sha.slice(0, 12); })
+  .then(v => {
+    const short = String(v && v.sha || '').slice(0, 12);
+    if (!/^[0-9a-f]{12}$/.test(short) || /^0+$/.test(short)) throw new Error('unreadable sha');
+    document.getElementById('version').textContent = short;
+  })
   .catch(() => { document.getElementById('version').textContent = '读取失败'; });
 </script>
 </body>

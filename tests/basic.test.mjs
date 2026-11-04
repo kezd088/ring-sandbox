@@ -64,3 +64,10 @@ test('index.html version shows 读取失败 when version.json returns 404', asyn
   }));
   assert.equal(text, '读取失败');
 });
+
+test('index.html version shows 读取失败 when version.json sha is missing or all zeros', async () => {
+  const missing = await runHomeScript(async () => ({ ok: true, json: async () => ({ build: 'dev' }) }));
+  assert.equal(missing, '读取失败');
+  const zeros = await runHomeScript(async () => ({ ok: true, json: async () => ({ sha: '0'.repeat(40), build: 'dev' }) }));
+  assert.equal(zeros, '读取失败');
+});
