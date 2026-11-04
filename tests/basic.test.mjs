@@ -34,6 +34,12 @@ test('index.html title and heading both read Ring sandbox', () => {
   assert.match(html, /<h1 id="title">Ring sandbox<\/h1>/);
 });
 
+test('index.html status reads 运行正常', () => {
+  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+  assert.match(html, /<p id="status">运行正常<\/p>/);
+  assert.doesNotMatch(html, /<p id="status">ok<\/p>/);
+});
+
 test('index.html version label reads Version:', () => {
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   assert.match(html, />Version: <span id="version">/);
