@@ -9,7 +9,7 @@ const read = (f) => JSON.parse(readFileSync(new URL('../' + f, import.meta.url),
 const runHomeScript = async (fetch) => {
   const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
   const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
-  const version = { textContent: '' };
+  const version = { textContent: html.match(/<span id="version">([^<]*)<\/span>/)[1] };
   const document = { getElementById: (id) => (id === 'version' ? version : null) };
   runInNewContext(script, { fetch, document });
   await tick();
@@ -40,10 +40,9 @@ test('index.html version label reads Version:', () => {
   assert.doesNotMatch(html, /Verison/);
 });
 
-test('index.html version is empty until version.json loads the first 12 sha chars', () => {
-  const html = readFileSync(new URL('../index.html', import.meta.url), 'utf8');
-  assert.match(html, /<span id="version"><\/span>/);
-  assert.match(html, /getElementById\('version'\)\.textContent = v\.sha\.slice\(0, 12\)/);
+test('index.html version shows unknown while version.json is still loading', async () => {
+  const text = await runHomeScript(() => new Promise(() => {}));
+  assert.equal(text, 'unknown');
 });
 
 test('index.html version shows the first 12 sha chars when version.json loads', async () => {
