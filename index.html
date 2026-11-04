@@ -10,7 +10,10 @@
 <p id="status">ok</p>
 <p>Version: <span id="version"></span></p>
 <script>
-fetch('version.json').then(r => r.json()).then(v => { document.getElementById('version').textContent = v.sha.slice(0, 12); });
+fetch('version.json')
+  .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+  .then(v => { document.getElementById('version').textContent = v.sha.slice(0, 12); })
+  .catch(() => { document.getElementById('version').textContent = '读取失败'; });
 </script>
 </body>
 </html>
